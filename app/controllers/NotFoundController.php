@@ -3,17 +3,19 @@
 namespace app\controllers;
 
 use core\library\Response;
-use Twig\Environment;
+use core\library\Twig;
 
 class NotFoundController
 {
     public function __construct(
-        private Environment $twig,
+        private Twig $twig,
     ) {
     }
 
     public function index():Response
     {
-        return new Response('Erro 404', 404);
+        return new Response(
+            $this->twig->env->render('404.twig', [], 404)
+        );
     }
 }

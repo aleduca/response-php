@@ -33,6 +33,13 @@ class Session
           session_destroy();
       }
 
+      public static function flashes(array $messages, string $icon = '<i class="bi bi-exclamation-circle"></i>')
+      {
+          foreach ($messages as $index => $message) {
+              $_SESSION['__flash'][$index] = $icon . $message;
+          }
+      }
+
       public static function flash(string $index, mixed $value, string $icon = '<i class="bi bi-exclamation-circle"></i>')
       {
           $_SESSION['__flash'][$index] = $icon . $value;
