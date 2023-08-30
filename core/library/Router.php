@@ -2,12 +2,15 @@
 
 namespace core\library;
 
+use app\controllers\AbstractController;
 use app\controllers\MethodNotAllowedController;
 use app\controllers\NotFoundController;
 use Closure;
 use DI\Container;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+use ReflectionClass;
+
 use function FastRoute\simpleDispatcher;
 
 class Router
@@ -17,7 +20,7 @@ class Router
 
     public function __construct(
         private Container $container,
-        private Request $request
+        public readonly Request $request
     ) {
     }
 
@@ -99,13 +102,35 @@ class Router
         $this->send($controller, $method, $vars);
     }
 
+    private function requestParameter(string $controller, string $method, array $vars)
+    {
+        $reflection = new ReflectionClass($controller);
+        $params = $reflection->getMethod($method)->getParameters();
+
+        foreach ($params as $param) {
+            if ($param->name === 'request') {
+                $vars['request'] = $this->request;
+            }
+        }
+
+        return $vars;
+    }
+
     private function send(string|Closure $controller, ?string $method, array $vars)
     {
+        // $vars = $this->requestParameter($controller, $method, $vars);
         if (is_callable($controller) && is_null($method)) {
-            return call_user_func_array($controller, $vars);
+            $closure = $controller->bindTo($this);
+
+            return call_user_func_array($closure, $vars);
         }
 
         $controller = $this->container->get($controller);
+
+        if (is_subclass_of($controller, AbstractController::class)) {
+            $controller->setRequest($this->request);
+        }
+
         $response = call_user_func_array([$controller, $method], $vars);
         $controller_namespace = get_class($controller);
 

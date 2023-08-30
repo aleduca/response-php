@@ -6,12 +6,13 @@ use app\database\model\User;
 use core\library\Response;
 use core\library\Twig;
 
-class HomeController
+class HomeController extends AbstractController
 {
     public function __construct(
-        private Twig $twig,
+        private Twig $twig
     ) {
     }
+
     public function index():Response
     {
         $user = new User;
