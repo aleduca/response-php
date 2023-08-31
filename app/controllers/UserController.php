@@ -3,14 +3,12 @@
 namespace app\controllers;
 
 use app\request\UserCreate;
-use core\library\Request;
 use core\library\Response;
 use core\library\Twig;
 
-class UserController
+class UserController extends AbstractController
 {
     public function __construct(
-        private Request $request,
         private Twig $twig
     ) {
     }
