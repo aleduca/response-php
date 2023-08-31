@@ -4,39 +4,26 @@ namespace core\library;
 
 class Sanitize
 {
-    private static $data = [];
+    private array $data = [];
 
-    private static function fields_from_post_request()
+    public function execute(array $request = [])
     {
-        $values = $_POST;
-        foreach ($values as $index => $value) {
-            self::$data[$index] = trim(strip_tags($value));
+        if (empty($request)) {
+            return $this;
         }
-    }
 
-    private static function fields_from_array(array $fields)
-    {
-        foreach ($fields as $field) {
-            self::$data[$field] = trim(strip_tags($_POST[$field]));
+        foreach ($request as $index => $value) {
+            $this->data[$index] = trim(strip_tags($value));
         }
-    }
-
-    public static function execute(array $fields = [])
-    {
-        (empty($fields)) ?
-            static::fields_from_post_request() :
-            static::fields_from_array($fields);
-
-        return new static;
     }
 
     public function all()
     {
-        return self::$data;
+        return $this->data;
     }
 
-    public function get(string $field)
+    public function get(string $index)
     {
-        return self::$data[$field] ?? null;
+        return $this->data[$index] ?? null;
     }
 }
