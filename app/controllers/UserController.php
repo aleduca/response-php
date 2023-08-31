@@ -22,6 +22,10 @@ class UserController extends AbstractController
 
     public function store()
     {
-        UserCreate::validate($this->request);
+        // UserCreate::validate($this->request);
+
+        $request = $this->request->getRequest('post');
+
+        var_dump($request->get('teste'));
     }
 }
