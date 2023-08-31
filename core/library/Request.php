@@ -2,6 +2,8 @@
 
 namespace core\library;
 
+use Exception;
+
 class Request
 {
     public function __construct(
@@ -18,14 +20,18 @@ class Request
         return new static($_GET, $_POST, $_SERVER,$_FILES,$_COOKIE);
     }
 
-    public function getRequest(string $request)
+    public function getRequest(string $request):Sanitize
     {
-        $request = $request === 'get' ? $this->get : $this->post;
+        $request = strtolower($request);
 
-        $sanitize = new Sanitize;
+        if (!in_array($request, ['get', 'post'])) {
+            throw new Exception("Request {$request} not accepted");
+        }
 
-        $sanitize->execute($request);
+        $santize = new Sanitize;
 
-        return $sanitize;
+        $santize->execute($this->$request);
+
+        return $santize;
     }
 }
