@@ -5,9 +5,9 @@ namespace core\library;
 class Response
 {
     public function __construct(
-        private mixed $body,
-        private int $statusCode = 200,
-        private array $headers = [],
+        protected mixed $body,
+        protected int $statusCode = 200,
+        protected array $headers = [],
     ) {
     }
 

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\request\UserCreate;
+use app\request\UserCreateFormRequest;
 use core\library\Response;
 use core\library\Twig;
 
@@ -20,8 +21,19 @@ class UserController extends AbstractController
         );
     }
 
-    public function store()
+    public function store():Response
     {
-        UserCreate::validate($this->request);
+        $validated = UserCreateFormRequest::validate($this->request);
+
+        if (!$validated) {
+            return redirect('/user/create');
+        }
+        // UserCreate::validate($this->request);
+
+        // $request = $this->request->getRequest('post');
+
+        // var_dump($request->all());
+
+        // return new Redirect('/');
     }
 }

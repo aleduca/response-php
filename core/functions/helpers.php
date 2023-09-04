@@ -1,5 +1,7 @@
 <?php
 
+use core\library\Redirect;
+use core\library\Response;
 
 function public_path()
 {
@@ -11,9 +13,9 @@ function base_path()
     return dirname(__FILE__, 3);
 }
 
-function redirect(string $to)
+function redirect(string $to):Response
 {
-    return header("Location:{$to}");
+    return new Redirect($to);
 }
 
 function remove_file(string $file)
