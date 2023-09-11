@@ -24,7 +24,7 @@ abstract class FormRequest
         }
     }
 
-    public function setRequest(Request $request)
+    protected function setRequest(Request $request)
     {
         $this->request = $request;
 

@@ -1,2 +1,3 @@
 /vendor/
 public/assets/images/**
+.env
