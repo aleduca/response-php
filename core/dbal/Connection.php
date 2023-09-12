@@ -1,6 +1,6 @@
 <?php
 
-namespace core\library;
+namespace core\dbal;
 
 use Doctrine\DBAL\DriverManager;
 

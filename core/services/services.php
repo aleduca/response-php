@@ -1,7 +1,7 @@
 <?php
 
 
-use core\library\Connection;
+use core\dbal\Connection;
 use core\library\Request;
 use core\library\Twig;
 use Doctrine\DBAL\Connection as DBALConnection;

@@ -2,30 +2,28 @@
 
 namespace app\controllers;
 
+use app\database\models\User;
 use core\library\Response;
 use core\library\Twig;
-use Doctrine\DBAL\Connection;
 
 class HomeController extends AbstractController
 {
     public function __construct(
         private Twig $twig,
-        private Connection $connection
+        private User $user
     ) {
     }
 
     public function index()
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
+        $user = $this->user->create([
+            'firstName' => 'Alexandre',
+            'lastName' => 'Cardoso',
+            'email' => 'xandecar@hotmail.com',
+            'password' => password_hash('123', PASSWORD_DEFAULT),
+        ]);
 
-        $selected = $queryBuilder->select('id', 'firstName', 'lastName', 'email')
-        ->from('users')
-        ->where('id = ' . $queryBuilder->createNamedParameter(2))
-        ->andWhere('firstName = ' . $queryBuilder->createNamedParameter('Alexandre'));
-
-        var_dump($selected->fetchAssociative());
-
-
+        var_dump($user);
         die();
         // return new Response(
         //     $this->twig->env->render('home.twig')
