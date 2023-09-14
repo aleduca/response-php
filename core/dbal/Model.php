@@ -13,12 +13,12 @@ abstract class Model
     ) {
     }
 
-    public function create(array $data)
-    {
-        $sql = "insert into {$this->table}(" . implode(',', array_keys($data)) . ') values(' . ':' . implode(',:', array_keys($data)) . ')';
-        var_dump($sql);
-        $prepare = $this->connection->prepare($sql);
+    // public function create(array $data)
+    // {
+    //     $sql = "insert into {$this->table}(" . implode(',', array_keys($data)) . ') values(' . ':' . implode(',:', array_keys($data)) . ')';
+    //     var_dump($sql);
+    //     $prepare = $this->connection->prepare($sql);
 
-        return $prepare->executeStatement($data);
-    }
+    //     return $prepare->executeStatement($data);
+    // }
 }
