@@ -11,7 +11,10 @@ class User extends Model implements AuthInterface
 {
     protected string $table = 'users';
 
-    public function getUserById(int $id):UserEntity
+    /**
+     * @return UserEntity
+     */
+    public function getUserById(int $id):Entity
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 
