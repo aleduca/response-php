@@ -9,6 +9,13 @@ class Redirect extends Response
         parent::__construct('', 302, ['location' => $uri]);
     }
 
+    public function withMessage(string $index, string $message)
+    {
+        Session::flash($index, $message);
+
+        return $this;
+    }
+
     public function send()
     {
         return header('Location: ' . $this->headers['location'], true, $this->statusCode);

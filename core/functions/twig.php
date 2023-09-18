@@ -13,6 +13,17 @@ $functions = [
             return "<span class='{$cssClass}'>{$flash[$index]}</span>";
         }
     },
+    'session_has' => function (string $index) {
+        return Session::has($index);
+    },
+
+    'session_get' => function (string $index) {
+        return Session::get($index);
+    },
+
+    'auth' => function () {
+        return Session::get('auth');
+    },
 ];
 
 $include_app_functions = require $app_functions;

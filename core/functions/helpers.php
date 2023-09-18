@@ -1,7 +1,6 @@
 <?php
 
 use core\library\Redirect;
-use core\library\Response;
 
 function public_path()
 {
@@ -13,7 +12,7 @@ function base_path()
     return dirname(__FILE__, 3);
 }
 
-function redirect(string $to):Response
+function redirect(string $to):Redirect
 {
     return new Redirect($to);
 }

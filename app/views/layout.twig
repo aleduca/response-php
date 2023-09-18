@@ -8,7 +8,15 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-  {% block content %}
-  {% endblock %}
+  <di class="container">
+    {% if session_has('auth') %} 
+      Bem vindo {{ auth().firstName }} | <a href="/logout">Logout</a>
+    {% else %}
+      Bem vindo, visitante <a href="/login">Login</a>
+    {% endif %}
+    
+    {% block content %}
+    {% endblock %}
+  </di>
 </body>
 </html>

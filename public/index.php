@@ -2,9 +2,9 @@
 
 use core\library\Session;
 
-session_start();
-
 require '../vendor/autoload.php';
+
+session_start();
 
 require '../app/config/bootstrap.php';
 

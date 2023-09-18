@@ -14,6 +14,13 @@ class UserController extends AbstractController
     ) {
     }
 
+    public function index():Response
+    {
+        return new Response(
+            $this->twig->env->render('users.twig')
+        );
+    }
+
     public function create():Response
     {
         return new Response(
