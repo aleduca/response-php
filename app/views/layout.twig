@@ -10,7 +10,11 @@
 <body>
   <di class="container">
     {% if session_has('auth') %} 
-      Bem vindo {{ auth().firstName }} | <a href="/logout">Logout</a>
+      Bem vindo {{ auth().firstName }} |
+      <form action="/logout" method="post">
+        <input type="hidden" name="__method" value="DELETE">
+        <button type="submit">Logout</button>
+      </form>
     {% else %}
       Bem vindo, visitante <a href="/login">Login</a>
     {% endif %}

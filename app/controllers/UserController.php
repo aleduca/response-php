@@ -43,4 +43,11 @@ class UserController extends AbstractController
 
         // return new Redirect('/');
     }
+
+    public function update(int $id):Response
+    {
+        return new Response('User ' . $id, 200, [
+            'Content-Type' => 'application/json',
+        ]);
+    }
 }

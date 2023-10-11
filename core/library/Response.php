@@ -21,6 +21,8 @@ class Response
             }
         }
 
-        echo $this->body;
+        echo (in_array('application/json', $this->headers)) ?
+            json_encode($this->body) :
+            $this->body;
     }
 }

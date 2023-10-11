@@ -60,6 +60,12 @@ class Router
         $httpMethod = $this->request->server['REQUEST_METHOD'];
         $uri = parse_url($this->request->server['REQUEST_URI'])['path'];
 
+        if ($httpMethod === 'POST' && $requestMethod = $this->request->post['__method']) {
+            if (in_array($requestMethod, ['PUT', 'DELETE'])) {
+                $httpMethod = $requestMethod;
+            }
+        }
+
         if ($uri !== '/') {
             $uri = rtrim($uri, '/');
         }
